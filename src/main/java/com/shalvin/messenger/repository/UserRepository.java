@@ -1,20 +1,14 @@
 package com.shalvin.messenger.repository;
 
 import com.shalvin.messenger.entity.User;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.r2dbc.repository.R2dbcRepository;
 import reactor.core.publisher.Mono;
 
-public interface UserRepository extends R2dbcRepository<User, Long> {
+import java.util.Optional;
 
-    // Find user by username
-    Mono<User> findByUsername(String username);
+public interface UserRepository extends JpaRepository<User, Long> {
 
-    // Find user by email
-    Mono<User> findByEmail(String email);
-
-    // Find user by phone number
-    Mono<User> findByPhoneNumber(String phoneNumber);
-
-    Mono<User> findUserByUsernameOrEmail(String username, String email);
+    Optional<User> findUserByUsernameOrEmail(String username, String email);
 }
 

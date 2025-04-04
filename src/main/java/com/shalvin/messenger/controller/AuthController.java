@@ -19,7 +19,7 @@ public class AuthController {
     }
 
     @PostMapping()
-    public Mono<BaseResponse<?>> login(@RequestBody LoginRequest request) {
+    public BaseResponse<?> login(@RequestBody LoginRequest request) {
         return userService.login(request);
     }
 }

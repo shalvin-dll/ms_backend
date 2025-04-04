@@ -3,7 +3,8 @@ package com.shalvin.messenger.dao;
 import com.shalvin.messenger.entity.User;
 import com.shalvin.messenger.repository.UserRepository;
 import org.springframework.stereotype.Component;
-import reactor.core.publisher.Mono;
+
+import java.util.Optional;
 
 @Component
 public class UserDao {
@@ -13,26 +14,29 @@ public class UserDao {
         this.userRepository = userRepository;
     }
 
-    public Mono<User> save(User user) {
+    public User save(User user) {
         return userRepository.save(user);
     }
 
-    public Mono<User> update(User user) {
+    public User update(User user) {
         return userRepository.save(user);
     }
 
-    public Mono<Boolean> delete(Long id) {
-        return userRepository.findById(id)
-                .flatMap(user -> userRepository.delete(user)
-                        .then(Mono.just(true)))
-                .switchIfEmpty(Mono.just(false));
+    public boolean delete(Long id) {
+        Optional<User> userOptional = userRepository.findById(id);
+        if (userOptional.isPresent()) {
+            userRepository.delete(userOptional.get());
+            return true;
+        } else {
+            return false;
+        }
     }
 
-    public Mono<User> findById(Long id) {
+    public Optional<User> findById(Long id) {
         return userRepository.findById(id);
     }
 
-    public Mono<User> findByUsernameOrEmail(String username, String email) {
+    public Optional<User> findByUsernameOrEmail(String username, String email) {
         return userRepository.findUserByUsernameOrEmail(username, email);
     }
 }

@@ -7,10 +7,11 @@ import com.shalvin.messenger.response.BaseResponse;
 import reactor.core.publisher.Mono;
 
 public interface UserService {
-    public Mono<User> createUser(User user);
-    public Mono<User> updateUser(User user);
-    public Mono<Boolean> deleteUser(Long id);
-    public Mono<UserDTO> getUserById(Long id);
-    public Mono<Boolean> userExists(Long id);
-    public Mono<BaseResponse<?>> login(LoginRequest request);
+    User createUser(User user);
+    User updateUser(User user);
+    boolean deleteUser(Long id);
+    UserDTO getUserById(Long id);
+    boolean userExists(Long id);
+    BaseResponse<?> login(LoginRequest request);
 }
+
