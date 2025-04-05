@@ -1,50 +1,51 @@
 package com.shalvin.messenger.entity;
 
 import com.shalvin.messenger.enums.Role;
+import jakarta.persistence.*;
 import lombok.Data;
-import org.springframework.data.annotation.Id;
-import org.springframework.data.relational.core.mapping.Column;
-import org.springframework.data.relational.core.mapping.Table;
+
 import java.time.LocalDateTime;
 
-@Table("users")
+@Table(name = "users")
 @Data
+@Entity
 public class User {
 
     @Id
     private Long id;
 
-    @Column("username")
+    @Column(name = "username")
     private String username;
 
-    @Column("name")
+    @Column(name = "name")
     private String name;
 
-    @Column("phone_number")
+    @Column(name = "phone_number")
     private String phoneNumber;
 
-    @Column("email")
+    @Column(name = "email")
     private String email;
 
-    @Column("password")
+    @Column(name = "password")
     private String password;
 
-    @Column("role")
+    @Column(name = "role")
+    @Enumerated(EnumType.STRING)
     private Role role;
 
-    @Column("profile_picture")
+    @Column(name = "profile_picture")
     private String profilePicture;
 
-    @Column("status")
+    @Column(name = "status")
     private String status;
 
-    @Column("last_seen")
+    @Column(name = "last_seen")
     private LocalDateTime lastSeen;
 
-    @Column("created_at")
+    @Column(name = "created_at")
     private LocalDateTime createdAt;
 
-    @Column("updated_at")
+    @Column(name = "updated_at")
     private LocalDateTime updatedAt;
 }
 
