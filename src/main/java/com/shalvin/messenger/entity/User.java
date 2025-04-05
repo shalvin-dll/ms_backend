@@ -5,7 +5,6 @@ import com.shalvin.messenger.model.UserDTO;
 import jakarta.persistence.*;
 import lombok.Data;
 
-import java.time.LocalDateTime;
 import java.util.Date;
 
 @Table(name = "users")
@@ -14,6 +13,7 @@ import java.util.Date;
 public class User {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(name = "username")
