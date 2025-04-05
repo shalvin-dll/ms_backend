@@ -56,7 +56,7 @@ public class UserServiceImpl implements UserService {
         if (userOpt.isPresent()) {
             User user = userOpt.get();
             if (password.equals(user.getPassword())) {
-                UserDTO userDTO = ObjectMapperUtil.objectMapper.convertValue(user, UserDTO.class);
+                UserDTO userDTO = user.toDTO();
                 return new BaseResponse<>(true, userDTO);
             } else {
                 return new BaseResponse<>(false, "Invalid credentials");

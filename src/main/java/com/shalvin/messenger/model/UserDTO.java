@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
+import java.util.Date;
 
 @Data
 @Builder
@@ -21,5 +22,5 @@ public class UserDTO {
     private Role role;
     private String profilePicture;
     private String status;
-    private LocalDateTime lastSeen;
+    private Date lastSeen;
 }
