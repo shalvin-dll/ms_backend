@@ -2,9 +2,6 @@ package com.shalvin.messenger.service.impl;
 
 import com.shalvin.messenger.dao.MessageDao;
 import com.shalvin.messenger.dao.UserDao;
-import com.shalvin.messenger.entity.Conversation;
-import com.shalvin.messenger.entity.ConversationParticipant;
-import com.shalvin.messenger.entity.Message;
 import com.shalvin.messenger.entity.User;
 import com.shalvin.messenger.model.HomeChatModel;
 import com.shalvin.messenger.response.BaseResponse;
