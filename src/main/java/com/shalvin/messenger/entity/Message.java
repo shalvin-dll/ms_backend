@@ -18,7 +18,7 @@ public class Message {
     private Long id;
 
     @Column(name = "conversation_id", nullable = false, length = 50)
-    private String conversationId;
+    private Long conversationId;
 
     @Column(name = "sender_username", nullable = false, length = 50)
     private String senderUsername;

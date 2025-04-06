@@ -16,5 +16,5 @@ public class ConversationParticipantId implements Serializable {
     private Long conversationId;
 
     @Column(name = "user_id")
-    private Long userId;
+    private String userId;
 }

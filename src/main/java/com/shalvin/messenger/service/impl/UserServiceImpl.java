@@ -40,7 +40,7 @@ public class UserServiceImpl implements UserService {
     public UserDTO getUserById(Long id) {
         Optional<User> userOpt = userDao.findById(id);
         return userOpt
-                .map(user -> ObjectMapperUtil.objectMapper.convertValue(user, UserDTO.class))
+                .map(User::toDTO)
                 .orElse(null);
     }
 

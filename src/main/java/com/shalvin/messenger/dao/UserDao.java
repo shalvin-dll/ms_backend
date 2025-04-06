@@ -4,7 +4,9 @@ import com.shalvin.messenger.entity.User;
 import com.shalvin.messenger.repository.UserRepository;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 @Component
 public class UserDao {
@@ -38,5 +40,13 @@ public class UserDao {
 
     public Optional<User> findByUsernameOrEmail(String username, String email) {
         return userRepository.findUserByUsernameOrEmail(username, email);
+    }
+
+    public Optional<User> findByUsername(String username) {
+        return userRepository.findUserByUsername(username);
+    }
+
+    public List<User> findAllByUsernames(List<String> usernames) {
+        return userRepository.findAllByUsernameIn(usernames);
     }
 }

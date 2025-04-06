@@ -23,7 +23,7 @@ public class ConversationParticipant {
 
     @ManyToOne
     @MapsId("userId")
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "user_id", referencedColumnName = "username", insertable = false, updatable = false)
     private User user;
 
     @Column(name = "is_admin")
