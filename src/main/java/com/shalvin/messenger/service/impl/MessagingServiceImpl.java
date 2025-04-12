@@ -2,8 +2,10 @@ package com.shalvin.messenger.service.impl;
 
 import com.shalvin.messenger.dao.MessageDao;
 import com.shalvin.messenger.dao.UserDao;
+import com.shalvin.messenger.entity.Message;
 import com.shalvin.messenger.entity.User;
 import com.shalvin.messenger.model.HomeChatModel;
+import com.shalvin.messenger.model.MessageDTO;
 import com.shalvin.messenger.response.BaseResponse;
 import com.shalvin.messenger.service.MessagingService;
 import org.springframework.stereotype.Service;
@@ -36,11 +38,19 @@ public class MessagingServiceImpl implements MessagingService {
             return new BaseResponse<>(true, userDao.findAllByUsernames(messageDao.getAllMessagesForConversationIds(convIds))
                     .stream()
                     .filter(sender -> !sender.getUsername().equals(username))
-                    .map(sender ->HomeChatModel.builder().username(sender.getUsername()).name(sender.getName())
+                    .map(sender -> HomeChatModel.builder().username(sender.getUsername()).name(sender.getName())
                             .lastMessage("This is last message").build()).toList());
         } else {
             return new BaseResponse<>(false, new ArrayList<>());
         }
+    }
+
+    public BaseResponse<List<MessageDTO>> getAllMessagesForUser(Long conversationId) {
+        return new BaseResponse<>(true, messageDao.getByConversationId(conversationId)
+                .stream()
+                .map(Message::toDTO)
+                .toList());
+
     }
 
 

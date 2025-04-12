@@ -1,5 +1,6 @@
 package com.shalvin.messenger.entity;
 
+import com.shalvin.messenger.model.MessageDTO;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -61,5 +62,13 @@ public class Message {
     @PreUpdate
     protected void onUpdate() {
         updatedAt = new Date();
+    }
+
+    public MessageDTO toDTO() {
+        MessageDTO messageDTO = new MessageDTO();
+        messageDTO.setUsername(senderUsername);
+        messageDTO.setMessage(messageText);
+        messageDTO.setTimestamp(createdAt);
+        return messageDTO;
     }
 }

@@ -1,6 +1,7 @@
 package com.shalvin.messenger.controller;
 
 import com.shalvin.messenger.model.HomeChatModel;
+import com.shalvin.messenger.model.MessageDTO;
 import com.shalvin.messenger.response.BaseResponse;
 import com.shalvin.messenger.service.MessagingService;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,5 +24,10 @@ public class UserController {
     @GetMapping("/homepage/{username}")
     public BaseResponse<List<HomeChatModel>> homepage(@PathVariable String username) {
         return messagingService.getAllMessagesForHomePage(username);
+    }
+
+    @GetMapping("/messages/{convId}")
+    public BaseResponse<List<MessageDTO>> messages(@PathVariable Long convId) {
+        return messagingService.getAllMessagesForUser(convId);
     }
 }

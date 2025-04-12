@@ -11,7 +11,9 @@ import java.util.Set;
 
 public interface MessageRepository extends JpaRepository<Message, Long> {
 
-    List<Message> findByConversationIdIn(Collection<String> conversationIds);
+    List<Message> findByConversationIdIn(Collection<Long> conversationIds);
+
+    List<Message> findAllByConversationId(Long conversationId);
 
     @Query("select m.senderUsername from Message m where m.conversationId in ?1 group by m.senderUsername")
     List<String> findUsersByConversationIds(Set<Long> conversationIds);

@@ -31,4 +31,8 @@ public class MessageDao {
         return messageRepository.findUsersByConversationIds(conversationIds);
     }
 
+    public List<Message> getByConversationId(Long conversationId) {
+        return messageRepository.findAllByConversationId(conversationId);
+    }
+
 }
