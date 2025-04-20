@@ -2,6 +2,7 @@ package com.shalvin.messenger.service.impl;
 
 import com.shalvin.messenger.dao.MessageDao;
 import com.shalvin.messenger.dao.UserDao;
+import com.shalvin.messenger.entity.ConversationParticipant;
 import com.shalvin.messenger.entity.Message;
 import com.shalvin.messenger.entity.User;
 import com.shalvin.messenger.model.HomeChatModel;
@@ -27,22 +28,18 @@ public class MessagingServiceImpl implements MessagingService {
     }
 
     public BaseResponse<List<HomeChatModel>> getAllMessagesForHomePage(String username) {
-        Optional<User> user = userDao.findByUsername(username);
-        if (user.isPresent()) {
-            Set<Long> convIds = messageDao.getAllConversationsForUser(user.get())
-                    .stream()
-                    .filter(conversationParticipant -> !conversationParticipant.getConversation().isGroup())
-                    .map(conversationParticipant -> conversationParticipant.getId().getConversationId())
-                    .collect(Collectors.toSet());
-
-            return new BaseResponse<>(true, userDao.findAllByUsernames(messageDao.getAllMessagesForConversationIds(convIds))
-                    .stream()
-                    .filter(sender -> !sender.getUsername().equals(username))
-                    .map(sender -> HomeChatModel.builder().username(sender.getUsername()).name(sender.getName())
-                            .lastMessage("This is last message").build()).toList());
-        } else {
-            return new BaseResponse<>(false, new ArrayList<>());
-        }
+        List<ConversationParticipant> conversationParticipants = messageDao.getAllConversationsForUser(username);
+        Set<Long> conversationIds = conversationParticipants.parallelStream()
+                .map(convo -> convo.getConversation().getId()).collect(Collectors.toSet());
+        List<ConversationParticipant> conversations = messageDao.getAllConversationsFromIds(conversationIds);
+        return new BaseResponse<>(true, conversations
+                .parallelStream()
+                .filter(conversationParticipant -> !conversationParticipant.getUser().getUsername().equals(username))
+                .map(convo -> HomeChatModel.builder().name(convo.getUser().getName())
+                        .conversationId(convo.getConversation().getId())
+                        .username(convo.getUser().getUsername())
+                        .build())
+                .toList());
     }
 
     public BaseResponse<List<MessageDTO>> getAllMessagesForUser(Long conversationId) {

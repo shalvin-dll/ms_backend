@@ -8,7 +8,7 @@ import lombok.Data;
 public class HomeChatModel {
     private String name;
     private String username;
-    private String conversationId;
+    private Long conversationId;
     private String lastMessage;
     private int unreadCount;
     private String profileImageUrl;

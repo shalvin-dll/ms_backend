@@ -23,8 +23,12 @@ public class MessageDao {
         this.messageRepository = messageRepository;
     }
 
-    public List<ConversationParticipant> getAllConversationsForUser(User user) {
-        return conversationParticipantsRepository.getAllByUser_Username(user.getUsername());
+    public List<ConversationParticipant> getAllConversationsForUser(String username) {
+        return conversationParticipantsRepository.getAllByUser_Username(username);
+    }
+
+    public List<ConversationParticipant> getAllConversationsFromIds(Set<Long> conversationIds) {
+        return conversationParticipantsRepository.getAllByConversationId(conversationIds);
     }
 
     public List<String> getAllMessagesForConversationIds(Set<Long> conversationIds) {
